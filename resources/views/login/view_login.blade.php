@@ -7,13 +7,33 @@
     <title>Halaman Login Saleproject</title>
 
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href=<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('/') }}plugins/fontawesome-free/css/all.min.css">
     <!-- icheck bootstrap -->
     <link rel="stylesheet" href="{{ asset('/') }}plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('/') }}dist/css/adminlte.min.css">
+
+    <style>
+        .btn {
+            border: none;
+            outline: none;
+            height: 45px;
+            background: #000000;
+            border-radius: 80px;
+            transition: .4s;
+            color: #fff;
+            font-weight: 800;
+        }
+
+        .btn:hover {
+            background: #C7C7C8;
+            color: #000000;
+        }
+    </style>
 </head>
 
 <body class="hold-transition login-page">
@@ -21,11 +41,10 @@
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <h1><strong>Sale</strong>project</h1>
+                <img src="{{ asset('/') }}dist/img/saleproject.png" style="width: 80px; display: block; margin-left: auto; margin-right: auto;">
             </div>
             <div class="card-body">
-                <p class="login-box-msg">Silahkan Login</p>
-
+                <h4 class="login-box-msg" style="font-weight: 800;">LOGIN</h4>
                 <form action="{{ url('login/proses') }}" method="post">
                     @csrf
                     <div class="input-group mb-3">
@@ -69,7 +88,7 @@
                     <div class="row">
                         <!-- /.col -->
                         <div class="col-12">
-                            <button type="submit" class="btn btn-primary btn-block">Login</button>
+                            <button type="submit" class="btn btn-primary btn-block" style="">Login</button>
                         </div>
                         <!-- /.col -->
                     </div>

@@ -60,11 +60,11 @@
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-color: #000000;">
             <!-- Brand Logo -->
             <a href="{{ asset('/') }}index3.html" class="brand-link">
-                <img src="{{ asset('/') }}dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light"><strong>Sale</strong>project</span>
+                <!-- <img src="{{ asset('/') }}dist/img/saleproject.png" alt="saleproject" class="brand-image img-circle elevation-3" style="width: 50px;"> -->
+                <span class="brand-text font-weight-light" style="margin-left: 20px;"><strong>Sale</strong>project</span>
             </a>
 
             <!-- Sidebar -->
@@ -72,7 +72,7 @@
                 <!-- Sidebar user (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="{{ asset('/') }}dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                        <img src="{{ asset('/') }}dist/img/admin.png" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
                         <a href="#" class="d-block">
@@ -119,12 +119,12 @@
         </div>
         <!-- /.content-wrapper -->
 
-        <footer class="main-footer">
+        <!-- <footer class="main-footer">
             <div class="float-right d-none d-sm-block">
                 <b>Version</b> 3.2.0
             </div>
             <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
-        </footer>
+        </footer> -->
 
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
