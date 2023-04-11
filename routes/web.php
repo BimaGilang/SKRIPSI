@@ -43,11 +43,16 @@ Route::controller(LoginController::class)->group(function () {
 Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['cekUserLogin:1']], function () {
         Route::resource('dashboard', DashboardController::class);
+        Route::get('produk/data', [ProdukController::class, 'data'])->name('produk.data');
+        Route::post('produk/delete-selected', [ProdukController::class, 'deleteSelected'])->name('produk.delete_selected');
+        Route::post('produk/cetak-barcode', [ProdukController::class, 'cetakBarcode'])->name('produk.cetak_barcode');
         Route::resource('produk', ProdukController::class);
         Route::resource('laporan', LaporanController::class);
+        Route::get('kategori/data', [KategoriController::class, 'data'])->name('kategori.data');
         Route::resource('kategori', KategoriController::class);
         Route::resource('kasir', KasirController::class);
         Route::resource('pembelian', PembelianController::class);
+        Route::get('pengeluaran/data', [PengeluaranController::class, 'data'])->name('pengeluaran.data');
         Route::resource('pengeluaran', PengeluaranController::class);
         Route::resource('hasilPenjualan', HasilPenjualanController::class);
     });

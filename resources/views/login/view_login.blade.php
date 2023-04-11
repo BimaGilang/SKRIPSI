@@ -41,7 +41,7 @@
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
             <div class="card-header text-center">
-                <img src="{{ asset('/') }}dist/img/saleproject.png" style="width: 80px; display: block; margin-left: auto; margin-right: auto;">
+                <img src="{{ asset('/') }}dist/img/saleproject.png" style="width: 100px; display: block; margin-left: auto; margin-right: auto;">
             </div>
             <div class="card-body">
                 <h4 class="login-box-msg" style="font-weight: 800;">LOGIN</h4>

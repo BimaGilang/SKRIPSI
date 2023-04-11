@@ -27,14 +27,14 @@
     </a>
 </li>
 <div class="sb-sidenav-menu-heading">KELOLA UANG</div>
-<li class="nav-item">
+<!-- <li class="nav-item">
     <a href="{{ url('pembelian') }}" class="nav-link">
         <img src="{{ asset('/') }}dist/img/Pembelian.png" style="width: 20px; margin-right: 10px;">
         <p>
             Pembelian
         </p>
     </a>
-</li>
+</li> -->
 <li class="nav-item">
     <a href="{{ url('pengeluaran') }}" class="nav-link">
         <img src="{{ asset('/') }}dist/img/pengeluaran.png" style="width: 20px; margin-right: 10px;">
