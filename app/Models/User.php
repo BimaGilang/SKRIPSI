@@ -43,4 +43,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function scopeIsNotAdmin($query)
+    {
+        return $query->where('level', '!=', 1);
+    }
 }

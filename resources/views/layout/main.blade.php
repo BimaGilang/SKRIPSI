@@ -5,8 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Saleproject</title>
+    <title>{{ $setting->nama_perusahaan }}</title>
 
+    <link rel="icon" href="{{ url($setting->path_logo) }}" type="image/png">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
@@ -164,6 +165,13 @@
     <script src="{{ asset('/') }}dist/js/demo.js"></script>
     <!-- Validator -->
     <script src="{{ asset('/') }}dist/js/validator.min.js"></script>
+
+    <script>
+        function preview(selector, temporaryFile, width = 200) {
+            $(selector).empty();
+            $(selector).append(`<img src="${window.URL.createObjectURL(temporaryFile)}" width="${width}">`);
+        }
+    </script>
 
 
     @stack('scripts')

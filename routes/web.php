@@ -3,7 +3,6 @@
 use App\Http\Controllers\Beranda;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HasilPenjualanController;
-use App\Http\Controllers\Kasir;
 use App\Http\Controllers\KasirController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LaporanController;
@@ -13,6 +12,8 @@ use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\SettingController;
+use Doctrine\DBAL\Schema\Index;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,19 +44,32 @@ Route::controller(LoginController::class)->group(function () {
 Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['cekUserLogin:1']], function () {
         Route::resource('dashboard', DashboardController::class);
+
         Route::get('produk/data', [ProdukController::class, 'data'])->name('produk.data');
         Route::post('produk/delete-selected', [ProdukController::class, 'deleteSelected'])->name('produk.delete_selected');
         Route::post('produk/cetak-barcode', [ProdukController::class, 'cetakBarcode'])->name('produk.cetak_barcode');
         Route::resource('produk', ProdukController::class);
+
         Route::resource('laporan', LaporanController::class);
+
         Route::get('kategori/data', [KategoriController::class, 'data'])->name('kategori.data');
         Route::resource('kategori', KategoriController::class);
+
+        Route::get('kasir/data', [KasirController::class, 'data'])->name('kasir.data');
         Route::resource('kasir', KasirController::class);
-        Route::resource('pembelian', PembelianController::class);
+
+        // Route::resource('pembelian', PembelianController::class);
+
         Route::get('pengeluaran/data', [PengeluaranController::class, 'data'])->name('pengeluaran.data');
         Route::resource('pengeluaran', PengeluaranController::class);
+
         Route::resource('hasilPenjualan', HasilPenjualanController::class);
+
+        Route::get('setting', [SettingController::class, 'index'])->name('setting.index');
+        Route::get('setting/first', [SettingController::class, 'show'])->name('setting.show');
+        Route::post('setting', [SettingController::class, 'update'])->name('setting.update');
     });
+
     Route::group(['middleware' => ['cekUserLogin:2']], function () {
         Route::resource('penjualan', PenjualanController::class);
     });

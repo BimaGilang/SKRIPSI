@@ -69,6 +69,14 @@
         </p>
     </a>
 </li>
+<li class="nav-item">
+    <a href="{{ url('setting') }}" class="nav-link">
+        <img src="{{ asset('/') }}dist/img/pengaturan.png" style="width: 20px; margin-right: 10px;">
+        <p>
+            Pengaturan
+        </p>
+    </a>
+</li>
 
 
 @elseif ($user->level == 2)
