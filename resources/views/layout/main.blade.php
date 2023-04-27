@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="{{ asset('/') }}plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="{{ asset('/') }}plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <!-- <link rel="stylesheet" href="{{ asset('/public/AdminLTE-3.2.0/') }}"> -->
+    @stack('css')
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -105,7 +106,7 @@
             <section class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
                             <h1>
                                 @yield('judul')
                             </h1>

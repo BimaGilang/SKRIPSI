@@ -45,29 +45,32 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['cekUserLogin:1']], function () {
         Route::resource('dashboard', DashboardController::class);
 
+        Route::get('kategori/data', [KategoriController::class, 'data'])->name('kategori.data');
+        Route::resource('kategori', KategoriController::class);
+
         Route::get('produk/data', [ProdukController::class, 'data'])->name('produk.data');
         Route::post('produk/delete-selected', [ProdukController::class, 'deleteSelected'])->name('produk.delete_selected');
         Route::post('produk/cetak-barcode', [ProdukController::class, 'cetakBarcode'])->name('produk.cetak_barcode');
         Route::resource('produk', ProdukController::class);
-
-        Route::resource('laporan', LaporanController::class);
-
-        Route::get('kategori/data', [KategoriController::class, 'data'])->name('kategori.data');
-        Route::resource('kategori', KategoriController::class);
-
-        Route::get('kasir/data', [KasirController::class, 'data'])->name('kasir.data');
-        Route::resource('kasir', KasirController::class);
-
-        // Route::resource('pembelian', PembelianController::class);
 
         Route::get('pengeluaran/data', [PengeluaranController::class, 'data'])->name('pengeluaran.data');
         Route::resource('pengeluaran', PengeluaranController::class);
 
         Route::resource('hasilPenjualan', HasilPenjualanController::class);
 
+        route::get('laporan', [LaporanController::class, 'index'])->name('laporan.index');
+        route::post('laporan', [LaporanController::class, 'refresh'])->name('laporan.refresh');
+        route::get('laporan/data/{awal}/{akhir}', [LaporanController::class, 'data'])->name('laporan.data');
+        route::get('laporan/pdf/{awal}/{akhir}', [LaporanController::class, 'exportPDF'])->name('laporan.export_pdf');
+
+        Route::get('kasir/data', [KasirController::class, 'data'])->name('kasir.data');
+        Route::resource('kasir', KasirController::class);
+
         Route::get('setting', [SettingController::class, 'index'])->name('setting.index');
         Route::get('setting/first', [SettingController::class, 'show'])->name('setting.show');
         Route::post('setting', [SettingController::class, 'update'])->name('setting.update');
+
+        // Route::resource('pembelian', PembelianController::class);
     });
 
     Route::group(['middleware' => ['cekUserLogin:2']], function () {
