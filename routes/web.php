@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Beranda;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\HasilPenjualanController;
 use App\Http\Controllers\KasirController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LaporanController;
@@ -11,6 +10,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\PenjualanController;
+use App\Http\Controllers\PenjualanDetailController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\SettingController;
 use Doctrine\DBAL\Schema\Index;
@@ -56,7 +56,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('pengeluaran/data', [PengeluaranController::class, 'data'])->name('pengeluaran.data');
         Route::resource('pengeluaran', PengeluaranController::class);
 
-        Route::resource('hasilPenjualan', HasilPenjualanController::class);
+        Route::get('hasilPenjualan/data', [PenjualanController::class, 'data'])->name('penjualan.data');
+        Route::get('hasilPenjualan/{id}', [PenjualanController::class, 'show'])->name('penjualan.show');
+        Route::get('hasilPenjualan', [PenjualanController::class, 'index'])->name('penjualan.index');
+        Route::delete('hasilPenjualan/{id}', [PenjualanController::class, 'destroy'])->name('penjualan.destroy');
 
         route::get('laporan', [LaporanController::class, 'index'])->name('laporan.index');
         route::post('laporan', [LaporanController::class, 'refresh'])->name('laporan.refresh');
@@ -70,10 +73,21 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('setting/first', [SettingController::class, 'show'])->name('setting.show');
         Route::post('setting', [SettingController::class, 'update'])->name('setting.update');
 
+        Route::get('profil', [KasirController::class, 'profil'])->name('user.profil');
+        Route::post('profil', [KasirController::class, 'updateProfil'])->name('user.update_profil');
+
+
         // Route::resource('pembelian', PembelianController::class);
     });
 
     Route::group(['middleware' => ['cekUserLogin:2']], function () {
-        Route::resource('penjualan', PenjualanController::class);
+        Route::get('transaksi/baru', [PenjualanController::class, 'create'])->name('transaksi.baru');
+        Route::post('transaksi/simpan', [PenjualanController::class, 'store'])->name('transaksi.simpan');
+        Route::get('transaksi/selesai', [PenjualanController::class, 'selesai'])->name('transaksi.selesai');
+        Route::get('transaksi/nota-kecil', [PenjualanController::class, 'notaKecil'])->name('transaksi.nota_kecil');
+        Route::get('transaksi/nota-besar', [PenjualanController::class, 'notaBesar'])->name('transaksi.nota_besar');
+        Route::get('transaksi/{id}/data', [PenjualanDetailController::class, 'data'])->name('transaksi.data');
+        Route::get('transaksi/loadform/{diskon}/{total}/{diterima}', [PenjualanDetailController::class, 'loadForm'])->name('transaksi.load_form');
+        Route::resource('transaksi', PenjualanDetailController::class)->except('show');
     });
 });

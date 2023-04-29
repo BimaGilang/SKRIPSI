@@ -81,10 +81,18 @@
 
 @elseif ($user->level == 2)
 <li class="nav-item">
-    <a href="{{ url('penjualan') }}" class="nav-link">
+    <a href="{{ route('transaksi.index') }}" class="nav-link">
         <img src="{{ asset('/') }}dist/img/kasir.png" style="width: 20px; margin-right: 10px;">
         <p>
-            Transaksi
+            Transaksi aktif
+        </p>
+    </a>
+</li>
+<li class="nav-item">
+    <a href="{{ route('transaksi.baru') }}" class="nav-link">
+        <img src="{{ asset('/') }}dist/img/kasir.png" style="width: 20px; margin-right: 10px;">
+        <p>
+            Transaksi baru
         </p>
     </a>
 </li>

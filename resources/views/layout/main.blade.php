@@ -83,7 +83,7 @@
                         <img src="{{ asset('/') }}dist/img/admin.png" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">
+                        <a href="{{ route('user.profil') }}" class="d-block">
                             {{ $user->name }}
                         </a>
                     </div>

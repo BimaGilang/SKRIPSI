@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class KasirController extends Controller
 {
@@ -119,5 +120,34 @@ class KasirController extends Controller
         $kasir = User::find($id)->delete();
 
         return response(null, 204);
+    }
+
+    public function profil()
+    {
+        $profil = auth()->user();
+        return view('layout.userProfil', compact('profil'))->with([
+            'user' => Auth::user()
+        ]);
+    }
+
+    public function updateProfil(Request $request)
+    {
+        $user = auth()->user();
+
+        $user->name = $request->name;
+        $user->username = $request->username;
+        if ($request->has('password') && $request->password != "") {
+            if (Hash::check($request->old_password, $user->password)) {
+                if ($request->password == $request->password_confirmation) {
+                    $user->password = bcrypt($request->password);
+                } else {
+                    return response()->json('Konfirmasi password tidak sesuai', 422);
+                }
+            } else {
+                return response()->json('Password lama tidak sesuai', 422);
+            }
+        }
+        $user->update();
+        return response()->json($user, 200);
     }
 }

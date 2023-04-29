@@ -56,7 +56,6 @@
                         <div class="col-lg-2">
                             <select name="tipe_nota" class="form-control" id="tipe_nota" required>
                                 <option value="1">Nota Kecil</option>
-                                <option value="2">Nota Besar</option>
                             </select>
                             <span class="help-block with-errors"></span>
                         </div>
