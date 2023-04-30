@@ -37,21 +37,21 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="harga_beli" class="col-lg-2 col-lg-offset-1 control-label">Lingkar Dada</label>
+                        <label for="lingkar_dada" class="col-lg-2 col-lg-offset-1 control-label">Lingkar Dada</label>
                         <div class="col-lg-6">
                             <input type="number" name="lingkar_dada" id="lingkar_dada" class="form-control" value="0" required>
                             <span class="help-block with-errors"></span>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="harga_beli" class="col-lg-2 col-lg-offset-1 control-label">Lingkar Paha</label>
+                        <label for="lingkar_paha" class="col-lg-2 col-lg-offset-1 control-label">Lingkar Paha</label>
                         <div class="col-lg-6">
                             <input type="number" name="lingkar_paha" id="lingkar_paha" class="form-control" value="0" required>
                             <span class="help-block with-errors"></span>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="harga_jual" class="col-lg-2 col-lg-offset-1 control-label">Panjang</label>
+                        <label for="panjang" class="col-lg-2 col-lg-offset-1 control-label">Panjang</label>
                         <div class="col-lg-6">
                             <input type="number" name="panjang" id="panjang" class="form-control" value="0" required>
                             <span class="help-block with-errors"></span>
@@ -61,6 +61,13 @@
                         <label for="harga_jual" class="col-lg-2 col-lg-offset-1 control-label">Harga</label>
                         <div class="col-lg-6">
                             <input type="number" name="harga_jual" id="harga_jual" class="form-control" value="0" required>
+                            <span class="help-block with-errors"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="stok" class="col-lg-2 col-lg-offset-1 control-label">stok</label>
+                        <div class="col-lg-6">
+                            <input type="number" name="stok" id="stok" class="form-control" value="1" required>
                             <span class="help-block with-errors"></span>
                         </div>
                     </div>

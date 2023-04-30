@@ -31,6 +31,7 @@
                         <th>Lingkar Paha</th>
                         <th>Panjang</th>
                         <th>Harga</th>
+                        <th>Stok</th>
                         <th width="15%"><i class="fa fa-cog"></i></th>
                     </thead>
                 </table>
@@ -88,6 +89,9 @@
                     data: 'harga_jual'
                 },
                 {
+                    data: 'stok'
+                },
+                {
                     data: 'aksi',
                     searchable: false,
                     sortable: false
@@ -143,6 +147,7 @@
                 $('#modal-form [name=lingkar_paha]').val(response.lingkar_paha);
                 $('#modal-form [name=panjang]').val(response.panjang);
                 $('#modal-form [name=harga_jual]').val(response.harga_jual);
+                $('#modal-form [name=stok]').val(response.stok);
             })
             .fail((errors) => {
                 alert('Tidak dapat menampilkan data');

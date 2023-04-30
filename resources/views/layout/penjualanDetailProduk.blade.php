@@ -16,6 +16,7 @@
                     </thead>
                     <tbody>
                         @foreach ($produk as $key => $item)
+                        @if( $item->stok == 1)
                         <tr>
                             <td width="5%">{{ $key+1 }}</td>
                             <td><span class="label label-success">{{ $item->kode_produk }}</span></td>
@@ -28,6 +29,7 @@
                                 </a>
                             </td>
                         </tr>
+                        @endif
                         @endforeach
                     </tbody>
                 </table>

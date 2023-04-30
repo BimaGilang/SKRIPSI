@@ -43,7 +43,7 @@ Route::controller(LoginController::class)->group(function () {
 
 Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['cekUserLogin:1']], function () {
-        Route::resource('dashboard', DashboardController::class);
+        Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
         Route::get('kategori/data', [KategoriController::class, 'data'])->name('kategori.data');
         Route::resource('kategori', KategoriController::class);

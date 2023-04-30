@@ -86,7 +86,7 @@ class PenjualanController extends Controller
             $item->update();
 
             $produk = Produk::find($item->id_produk);
-            // $produk->stok = $item->jumlah;
+            $produk->stok -= $item->jumlah;
             $produk->update();
         }
 
@@ -125,7 +125,7 @@ class PenjualanController extends Controller
         foreach ($detail as $item) {
             $produk = Produk::find($item->id_produk);
             if ($produk) {
-                // $produk->stok += $item->jumlah;
+                $produk->stok += $item->jumlah;
                 $produk->update();
             }
 
@@ -157,7 +157,15 @@ class PenjualanController extends Controller
             ->where('id_penjualan', session('id_penjualan'))
             ->get();
 
-        return view('layout.hasilPenjualanNota_kecil', compact('setting', 'penjualan', 'detail'))->with([
+        $hapusProduk = PenjualanDetail::where('id_penjualan', $penjualan->id_penjualan)->get();
+        foreach ($hapusProduk as $item) {
+            $hapusProduk = Produk::find($item->id_produk);
+            if ($hapusProduk->stok == 0) {
+                $hapusProduk->delete();
+            }
+        }
+
+        return view('layout.hasilPenjualanNota_kecil', compact('setting', 'penjualan', 'detail', 'hapusProduk'))->with([
             'user' => Auth::user()
         ]);
     }
