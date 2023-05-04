@@ -3,18 +3,53 @@
 <h1>Transaksi</h1>
 @endsection
 
+@push('css')
+<style>
+    .tampil-bayar {
+        font-size: 5em;
+        text-align: center;
+        height: 100px;
+    }
+
+    .tampil-terbilang {
+        padding: 10px;
+        background: #f0f0f0;
+    }
+
+    .table-penjualan tbody tr:last-child {
+        display: none;
+    }
+
+    @media(max-width: 768px) {
+        .tampil-bayar {
+            font-size: 3em;
+            height: 70px;
+            padding-top: 5px;
+        }
+    }
+</style>
+@endpush
+
 @section('isi')
 <div class="container-fluid px-4">
     <div class="card mb-4">
-        <div class="card-header">
-            <button class="btn btn-success btn-xs btn-flat"><i class="fa fa-plus-circle"></i> Scan Barcode</button>
-        </div>
-
         <div class="card-body">
             <form class="form-produk">
                 @csrf
                 <div class="form-group row">
-                    <label for="kode_produk" class="col-lg-2">Kode Produk</label>
+                    <label for="kode_produk" class="col-lg-2">Scan Produk</label>
+                    <div class="col-lg-6">
+                        <div class="input-group">
+                            <div id="reader" width="200px"></div>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="kode_produkScan" id="kode_produkScan">
+                            <button onclick="pilihProdukScan()" class="btn btn-info btn-flat" type="button"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="kode_produk" class="col-lg-2">Pilih Produk</label>
                     <div class="col-lg-6">
                         <div class="input-group">
                             <input type="hidden" name="id_penjualan" id="id_penjualan" value="{{ $id_penjualan }}">
@@ -94,6 +129,7 @@
     </div>
 </div>
 @includeIf('layout.penjualanDetailProduk')
+@includeIf('layout.penjualanDetailScan')
 @endsection
 
 @push('scripts')
@@ -217,6 +253,11 @@
         tambahProduk();
     }
 
+    function pilihProdukScan(kode) {
+        $('#kode_produkScan').val(kode);
+        tambahProduk();
+    }
+
     function tambahProduk() {
         $.post("{{ route('transaksi.store') }}", $('.form-produk').serialize())
             .done(response => {
@@ -267,5 +308,80 @@
                 return;
             })
     }
+</script>
+
+<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function onScanSuccess(decodedText, decodedResult) {
+        $("#kode_produkScan").val(decodedText);
+        $('#kode_produkScan').focus();
+        let hasilScan = decodedText;
+
+        csrf_token = $('meta[name="csrf-token"]').attr('content');
+
+        Swal.fire({
+            title: 'Succes',
+            text: 'Qr Code Berhasil di Scan',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK',
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url: "{{ route('transaksi.validasiQrcode') }}",
+                    type: 'POST',
+                    data: {
+                        '_method': 'POST',
+                        '_token': csrf_token,
+                        'validasiQrcode': hasilScan
+                    },
+
+                    success: function(response) {
+                        if (response.berhasil) {
+                            Swal.fire({
+                                icon: 'success',
+                                type: 'succes',
+                                title: 'Success!',
+                                text: 'Data Tersedia'
+                            });
+                        }
+                        if (response.status_error) {
+                            Swal.fire({
+                                type: 'error',
+                                tittle: 'Oopss...',
+                                text: 'Data Tidak Tersedia'
+                            });
+                        }
+                    },
+
+                    error: function(xhr) {
+                        Swal.fire({
+                            type: 'error',
+                            tittle: 'Oopss...',
+                            text: 'Somthing Wrong Brother'
+                        });
+                    }
+                })
+            }
+        })
+    }
+
+    function onScanFailure(error) {
+        // handle scan failure, usually better to ignore and keep scanning.
+        // for example:
+        // console.warn(`Code scan error = ${error}`);
+    }
+
+    let html5QrcodeScanner = new Html5QrcodeScanner(
+        "reader", {
+            fps: 10,
+            qrbox: {
+                width: 250,
+                height: 250
+            }
+        },
+        /* verbose= */
+        false);
+    html5QrcodeScanner.render(onScanSuccess, onScanFailure);
 </script>
 @endpush

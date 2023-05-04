@@ -6,6 +6,7 @@ use App\Models\Kategori;
 use App\Models\Pengeluaran;
 use App\Models\Penjualan;
 use App\Models\Produk;
+use App\Models\Rop;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,6 +17,7 @@ class DashboardController extends Controller
         $kategori = Kategori::count();
         $produk = Produk::count();
         $penjualan = Penjualan::count();
+        $rop = Rop::find(1);
 
         $tanggal_awal = date('Y-m-01');
         $tanggal_akhir = date('Y-m-d');
@@ -37,7 +39,7 @@ class DashboardController extends Controller
 
         $tanggal_awal = date('Y-m-01');
 
-        return view('layout.dashboard', compact('kategori', 'produk', 'penjualan', 'tanggal_awal', 'tanggal_akhir', 'data_tanggal', 'data_pendapatan'))->with([
+        return view('layout.dashboard', compact('kategori', 'produk', 'penjualan', 'rop', 'tanggal_awal', 'tanggal_akhir', 'data_tanggal', 'data_pendapatan'))->with([
             'user' => Auth::user()
         ]);
     }

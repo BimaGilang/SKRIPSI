@@ -46,11 +46,20 @@
             </div>
         </div>
         <div class="col-xl-3 col-md-6">
-            <div class="card bg-danger text-white mb-4">
-                <div class="card-body">Reorder Point</div>
-                <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="{{ route('produk.index') }}">View Details</a>
-                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+            <div class="card mb-4">
+                <div class="card-body bg-dark">
+                    @if ($produk <= $rop->reorder_point) <div class="alert alert-danger" role="alert">
+                            Time To Restock
+                        </div>
+                        @else
+                        <div class="alert alert-success" role="alert">
+                            Ready Stock
+                        </div>
+                        @endif
+                </div>
+                <div class="card-footer d-flex align-items-center justify-content-between bg-dark">
+                    <a class="small stretched-link" href="{{ route('rop.index') }}">Reorder Point</a>
+                    <div class="small"><i class="fas fa-angle-right"></i></div>
                 </div>
             </div>
         </div>

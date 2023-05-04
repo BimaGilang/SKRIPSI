@@ -12,6 +12,7 @@ use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\PenjualanDetailController;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\RopController;
 use App\Http\Controllers\SettingController;
 use Doctrine\DBAL\Schema\Index;
 use Illuminate\Support\Facades\Route;
@@ -76,11 +77,16 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('profil', [KasirController::class, 'profil'])->name('user.profil');
         Route::post('profil', [KasirController::class, 'updateProfil'])->name('user.update_profil');
 
+        Route::get('rop', [RopController::class, 'index'])->name('rop.index');
+        Route::get('rop/first', [RopController::class, 'show'])->name('rop.show');
+        Route::post('rop', [RopController::class, 'update'])->name('rop.update');
+
 
         // Route::resource('pembelian', PembelianController::class);
     });
 
     Route::group(['middleware' => ['cekUserLogin:2']], function () {
+        Route::post('transaksi/validasiQrcode', [PenjualanDetailController::class, 'validasiQrcode'])->name('transaksi.validasiQrcode');
         Route::get('transaksi/baru', [PenjualanController::class, 'create'])->name('transaksi.baru');
         Route::post('transaksi/simpan', [PenjualanController::class, 'store'])->name('transaksi.simpan');
         Route::get('transaksi/selesai', [PenjualanController::class, 'selesai'])->name('transaksi.selesai');

@@ -70,6 +70,14 @@
     </a>
 </li>
 <li class="nav-item">
+    <a href="{{ url('rop') }}" class="nav-link">
+        <img src="{{ asset('/') }}dist/img/ReorderPoint.png" style="width: 20px; margin-right: 10px;">
+        <p>
+            Reorder Point
+        </p>
+    </a>
+</li>
+<li class="nav-item">
     <a href="{{ url('setting') }}" class="nav-link">
         <img src="{{ asset('/') }}dist/img/pengaturan.png" style="width: 20px; margin-right: 10px;">
         <p>

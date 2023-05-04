@@ -123,4 +123,21 @@ class PenjualanDetailController extends Controller
 
         return response(null, 204);
     }
+
+    public function validasiQrcode(Request $request)
+    {
+        $hasilScan = $request->validasiQrcode;
+        // $cekrop = $this->db->query("SELECT * FROM rop WHERE kd_barang=$kd_barang")->row_array();
+        // if ($cekrop['rop'] === null)
+        $kode_produk = Produk::Where('kode_produk', 'SPJ01')->first();
+        if ($kode_produk->kode_produk == $hasilScan) {
+            return response()->json([
+                "berhasil" => 'Data tersedia'
+            ]);
+        } else {
+            return response()->json([
+                "status_error" => "Data tidak tersedia"
+            ]);
+        }
+    }
 }
