@@ -34,7 +34,7 @@
 <div class="container-fluid px-4">
     <div class="card mb-4">
         <div class="card-body">
-            <form class="form-produk">
+            <form class="form-produkScan">
                 @csrf
                 <div class="form-group row">
                     <label for="kode_produk" class="col-lg-2">Scan Produk</label>
@@ -42,12 +42,17 @@
                         <div class="input-group">
                             <div id="reader" width="200px"></div>
                         </div>
+                        <br>
                         <div class="input-group">
-                            <input type="text" class="form-control" name="kode_produkScan" id="kode_produkScan">
-                            <button onclick="pilihProdukScan()" class="btn btn-info btn-flat" type="button"><i class="fa fa-search"></i></button>
+                            <input type="hidden" name="id_penjualan" id="id_penjualanScan" value="{{ $id_penjualan }}">
+                            <input type="text" class="form-control col-lg-4" name="kode_produkScan" id="kode_produkScan">
+                            <!-- <button onclick="tambahProdukScan()" class="btn btn-info btn-flat" type="button"><i class="fa fa-search"></i></button> -->
                         </div>
                     </div>
                 </div>
+            </form>
+            <form class="form-produk">
+                @csrf
                 <div class="form-group row">
                     <label for="kode_produk" class="col-lg-2">Pilih Produk</label>
                     <div class="col-lg-6">
@@ -253,11 +258,6 @@
         tambahProduk();
     }
 
-    function pilihProdukScan(kode) {
-        $('#kode_produkScan').val(kode);
-        tambahProduk();
-    }
-
     function tambahProduk() {
         $.post("{{ route('transaksi.store') }}", $('.form-produk').serialize())
             .done(response => {
@@ -315,8 +315,9 @@
 <script>
     function onScanSuccess(decodedText, decodedResult) {
         $("#kode_produkScan").val(decodedText);
-        $('#kode_produkScan').focus();
         let hasilScan = decodedText;
+
+        let cekid = $("#id_penjualanScan").val();
 
         csrf_token = $('meta[name="csrf-token"]').attr('content');
 
@@ -333,7 +334,8 @@
                     data: {
                         '_method': 'POST',
                         '_token': csrf_token,
-                        'validasiQrcode': hasilScan
+                        'validasiQrcode': hasilScan,
+                        'id_penjualan': cekid
                     },
 
                     success: function(response) {
@@ -342,14 +344,17 @@
                                 icon: 'success',
                                 type: 'succes',
                                 title: 'Success!',
-                                text: 'Data Tersedia'
+                                text: 'Data Masuk'
                             });
+
+                            $('#kode_produk').focus();
+                            table.ajax.reload(() => loadForm($('#diskon').val()));
                         }
                         if (response.status_error) {
                             Swal.fire({
                                 type: 'error',
                                 tittle: 'Oopss...',
-                                text: 'Data Tidak Tersedia'
+                                text: 'Data Tidak Masuk'
                             });
                         }
                     },

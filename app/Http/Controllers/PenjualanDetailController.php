@@ -127,10 +127,18 @@ class PenjualanDetailController extends Controller
     public function validasiQrcode(Request $request)
     {
         $hasilScan = $request->validasiQrcode;
-        // $cekrop = $this->db->query("SELECT * FROM rop WHERE kd_barang=$kd_barang")->row_array();
-        // if ($cekrop['rop'] === null)
-        $kode_produk = Produk::Where('kode_produk', 'SPJ01')->first();
-        if ($kode_produk->kode_produk == $hasilScan) {
+        $cekScan = Produk::where("kode_produk", $hasilScan)->first();
+        if ($cekScan != null) {
+
+            $detail = new PenjualanDetail();
+            $detail->id_penjualan = $request->id_penjualan;
+            $detail->id_produk = $cekScan->id_produk;
+            $detail->harga_jual = $cekScan->harga_jual;
+            $detail->jumlah = 1;
+            $detail->diskon = $request->diskon;
+            $detail->subtotal = $cekScan->harga_jual - ($cekScan->diskon / 100 * $cekScan->harga_jual);;
+            $detail->save();
+
             return response()->json([
                 "berhasil" => 'Data tersedia'
             ]);
