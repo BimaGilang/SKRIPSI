@@ -17,7 +17,7 @@ class KasirController extends Controller
     }
     public function data()
     {
-        $kasir = User::isNotAdmin()->orderBy('id', 'ASC')->get();
+        $kasir = User::where('level', '2')->orderBy('id', 'ASC')->get();
         // $kasir = User::orderBy('id', 'ASC')->get();
 
         return datatables()

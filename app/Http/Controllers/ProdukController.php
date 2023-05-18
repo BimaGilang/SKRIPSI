@@ -26,7 +26,7 @@ class ProdukController extends Controller
     public function data()
     {
         $produk = Produk::leftJoin('kategori', 'kategori.id_kategori', 'produk.id_kategori')
-            ->select('produk.*', 'nama_kategori')
+            ->select('produk.*', 'nama_kategori')->where('stok', '1')
             //->orderBy('id_produk', 'desc')
             ->get();
 

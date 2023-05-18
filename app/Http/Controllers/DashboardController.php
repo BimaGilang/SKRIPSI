@@ -15,7 +15,7 @@ class DashboardController extends Controller
     public function index()
     {
         $kategori = Kategori::count();
-        $produk = Produk::count();
+        $produk = Produk::where('stok', '1')->count();
         $penjualan = Penjualan::count();
         $rop = Rop::find(1);
 

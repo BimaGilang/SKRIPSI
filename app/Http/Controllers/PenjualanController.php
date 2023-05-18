@@ -46,6 +46,7 @@ class PenjualanController extends Controller
             ->addColumn('aksi', function ($penjualan) {
                 return '
                 <div class="btn-group">
+                    <button onclick="showDetail(`' . route('penjualan.show', $penjualan->id_penjualan) . '`)" class="btn btn-xs btn-info btn-flat"><i class="fa fa-eye"></i></button>
                     <button type="button" onclick="deleteData(`' . route('penjualan.destroy', $penjualan->id_penjualan) . '`)" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
                 </div>
                 ';
@@ -156,15 +157,7 @@ class PenjualanController extends Controller
             ->where('id_penjualan', session('id_penjualan'))
             ->get();
 
-        $hapusProduk = PenjualanDetail::where('id_penjualan', $penjualan->id_penjualan)->get();
-        foreach ($hapusProduk as $item) {
-            $hapusProduk = Produk::find($item->id_produk);
-            if ($hapusProduk->stok == 0) {
-                $hapusProduk->delete();
-            }
-        }
-
-        return view('layout.hasilPenjualanNota_kecil', compact('setting', 'penjualan', 'detail', 'hapusProduk'))->with([
+        return view('layout.hasilPenjualanNota_kecil', compact('setting', 'penjualan', 'detail'))->with([
             'user' => Auth::user()
         ]);
     }

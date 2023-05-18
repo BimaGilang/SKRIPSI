@@ -96,7 +96,10 @@
                     searchable: false,
                     sortable: false
                 },
-            ]
+            ],
+            dom: 'Brt',
+            bSort: false,
+            bPaginate: false,
         });
 
         $('#modal-form').validator().on('submit', function(e) {

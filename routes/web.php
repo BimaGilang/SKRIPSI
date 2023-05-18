@@ -3,6 +3,7 @@
 use App\Http\Controllers\Beranda;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KasirController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\LayoutController;
@@ -43,6 +44,11 @@ Route::controller(LoginController::class)->group(function () {
 });
 
 Route::group(['middleware' => ['auth']], function () {
+    Route::get('hasilPenjualan/data', [PenjualanController::class, 'data'])->name('penjualan.data');
+    Route::get('hasilPenjualan/{id}', [PenjualanController::class, 'show'])->name('penjualan.show');
+    Route::get('hasilPenjualan', [PenjualanController::class, 'index'])->name('penjualan.index');
+    Route::delete('hasilPenjualan/{id}', [PenjualanController::class, 'destroy'])->name('penjualan.destroy');
+
     Route::group(['middleware' => ['cekUserLogin:1']], function () {
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -56,11 +62,6 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::get('pengeluaran/data', [PengeluaranController::class, 'data'])->name('pengeluaran.data');
         Route::resource('pengeluaran', PengeluaranController::class);
-
-        Route::get('hasilPenjualan/data', [PenjualanController::class, 'data'])->name('penjualan.data');
-        Route::get('hasilPenjualan/{id}', [PenjualanController::class, 'show'])->name('penjualan.show');
-        Route::get('hasilPenjualan', [PenjualanController::class, 'index'])->name('penjualan.index');
-        Route::delete('hasilPenjualan/{id}', [PenjualanController::class, 'destroy'])->name('penjualan.destroy');
 
         route::get('laporan', [LaporanController::class, 'index'])->name('laporan.index');
         route::post('laporan', [LaporanController::class, 'refresh'])->name('laporan.refresh');
@@ -95,5 +96,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('transaksi/{id}/data', [PenjualanDetailController::class, 'data'])->name('transaksi.data');
         Route::get('transaksi/loadform/{diskon}/{total}/{diterima}', [PenjualanDetailController::class, 'loadForm'])->name('transaksi.load_form');
         Route::resource('transaksi', PenjualanDetailController::class)->except('show');
+    });
+
+    Route::group(['middleware' => ['cekUserLogin:3']], function () {
+        Route::get('user/data', [UserController::class, 'data'])->name('user.data');
+        Route::resource('user', UserController::class);
     });
 });

@@ -104,4 +104,23 @@
         </p>
     </a>
 </li>
+<li class="nav-item">
+    <a href="{{ url('hasilPenjualan') }}" class="nav-link">
+        <img src="{{ asset('/') }}dist/img/hasilPenjualan.png" style="width: 20px; margin-right: 10px;">
+        <p>
+            Hasil Penjualan
+        </p>
+    </a>
+</li>
+
+
+@elseif ($user->level == 3)
+<li class="nav-item">
+    <a href="{{ url('user') }}" class="nav-link">
+        <img src="{{ asset('/') }}dist/img/kasir-p.png" style="width: 20px; margin-right: 10px;">
+        <p>
+            Kelola User
+        </p>
+    </a>
+</li>
 @endif
