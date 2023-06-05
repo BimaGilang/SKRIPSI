@@ -1,6 +1,15 @@
 @if ($user->level == 1)
 <div class="sb-sidenav-menu-heading">MASTER</div>
 <li class="nav-item">
+    <a href="{{ url('search') }}" class="nav-link">
+        <img src="{{ asset('/') }}dist/img/dashboard.png" style="width: 20px; margin-right: 10px;">
+        <!-- <i class="nav-icon fas fa-tachometer-alt"></i> -->
+        <p>
+            Search Engine
+        </p>
+    </a>
+</li>
+<li class="nav-item">
     <a href="{{ url('dashboard') }}" class="nav-link">
         <img src="{{ asset('/') }}dist/img/dashboard.png" style="width: 20px; margin-right: 10px;">
         <!-- <i class="nav-icon fas fa-tachometer-alt"></i> -->

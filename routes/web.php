@@ -14,6 +14,7 @@ use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\PenjualanDetailController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\RopController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SettingController;
 use Doctrine\DBAL\Schema\Index;
 use Illuminate\Support\Facades\Route;
@@ -81,6 +82,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('rop', [RopController::class, 'index'])->name('rop.index');
         Route::get('rop/first', [RopController::class, 'show'])->name('rop.show');
         Route::post('rop', [RopController::class, 'update'])->name('rop.update');
+
+        Route::resource('search', SearchController::class);
 
 
         // Route::resource('pembelian', PembelianController::class);
